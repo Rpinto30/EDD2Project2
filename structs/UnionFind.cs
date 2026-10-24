@@ -1,8 +1,8 @@
 using System;
 
-namespace Estructuras;
+namespace Proyecto2EDD2.Estructuras;
 
-/// <summary>Union-Find (conjuntos disjuntos) con compresión de caminos y unión por rango.</summary>
+
 public class UnionFind
 {
     private int[] _parent;
@@ -41,7 +41,7 @@ public class UnionFind
         int root = x;
         while (_parent[root] != root) root = _parent[root];
 
-        // Compresión de caminos
+
         while (_parent[x] != root)
         {
             int next = _parent[x];

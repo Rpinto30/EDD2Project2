@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic; // SOLO para Queue<int> en el BFS
+using System.Collections.Generic;
 using System.Text;
 
-namespace Estructuras;
+namespace Proyecto2EDD2.Estructuras;
 
-/// <summary>
-/// Grafo ponderado de sedes (lista de adyacencia propia). Cada arista tiene tiempo (s) y costo.
-/// Usa Union-Find para validar conectividad antes de ejecutar Dijkstra.
-/// </summary>
 public class Grafo
 {
     private class EdgeNode
@@ -27,12 +23,11 @@ public class Grafo
     public int NodeCount => _count;
 
     // ---------- Construcción ----------
-
     public void InsertNode(string nameCenter)
     {
         if (string.IsNullOrWhiteSpace(nameCenter))
             throw new ArgumentException("El nombre de la sede no puede estar vacío.");
-        if (IndexOf(nameCenter) >= 0) return; // ya existe
+        if (IndexOf(nameCenter) >= 0) return; 
 
         if (_count == _names.Length)
         {
@@ -44,11 +39,11 @@ public class Grafo
         }
 
         _names[_count] = nameCenter.Trim();
-        _uf.MakeSet(); // el índice del nodo coincide con el índice en el Union-Find
+        _uf.MakeSet(); //unionfind
         _count++;
     }
 
-    /// <summary>Inserta una conexión. Por defecto (edge.Bidirectional = 0) es unidireccional.</summary>
+    /// <summary> default (edge.Bidirectional = 0)</summary>
     public void InsertConnection(string origin, string dest, CenterEdge edge)
     {
         ArgumentNullException.ThrowIfNull(edge);
@@ -67,7 +62,6 @@ public class Grafo
     }
 
     // ---------- Recorridos ----------
-
     public void Dfs()
     {
         Console.WriteLine("=== DFS ===");
@@ -75,7 +69,7 @@ public class Grafo
 
         bool[] visited = new bool[_count];
         var sb = new StringBuilder();
-        for (int i = 0; i < _count; i++)       // cubre componentes desconectados
+        for (int i = 0; i < _count; i++)
             if (!visited[i]) DfsVisit(i, visited, sb);
         Console.WriteLine(sb.ToString());
     }
@@ -95,7 +89,7 @@ public class Grafo
         if (_count == 0) { Console.WriteLine("(grafo vacío)"); return; }
 
         bool[] visited = new bool[_count];
-        var queue = new Queue<int>(); // único uso permitido de colección nativa
+        var queue = new Queue<int>();
         var sb = new StringBuilder();
 
         for (int s = 0; s < _count; s++)
@@ -119,7 +113,6 @@ public class Grafo
         Console.WriteLine(sb.ToString());
     }
 
-    /// <summary>Imprime la lista de adyacencia: sede -> (destino, tiempo, costo) ...</summary>
     public void ShowMatrix()
     {
         Console.WriteLine("=== Lista de adyacencia ===");
@@ -133,19 +126,13 @@ public class Grafo
         }
     }
 
-    // ---------- Rutas (Dijkstra) ----------
-
+    // ---------- Dijkstra ----------
     public RouteResult? DijkstraCost(string origin, string dest)
         => RunDijkstra(origin, dest, RouteCriteria.Cost, 0.5);
 
     public RouteResult? DijkstraTime(string origin, string dest)
         => RunDijkstra(origin, dest, RouteCriteria.Time, 0.5);
 
-    /// <summary>
-    /// Mejor ruta considerando tiempo y costo. Ambos se normalizan (dividiendo por el máximo
-    /// de cada magnitud en el grafo) y se combinan: peso = w*tiempo + (1-w)*costo.
-    /// timeWeight (0..1): importancia del tiempo; por defecto 0.5 (50% / 50%).
-    /// </summary>
     public RouteResult? Dijkstra(string origin, string dest, double timeWeight = 0.5)
     {
         if (timeWeight < 0 || timeWeight > 1)
@@ -153,7 +140,6 @@ public class Grafo
         return RunDijkstra(origin, dest, RouteCriteria.Combined, timeWeight);
     }
 
-    /// <summary>Verifica con Union-Find si dos sedes están conectadas (ignorando direcciones).</summary>
     public bool AreConnected(string a, string b) => _uf.Connected(RequireIndex(a), RequireIndex(b));
 
     private RouteResult? RunDijkstra(string origin, string dest, RouteCriteria criteria, double timeWeight)
@@ -161,8 +147,6 @@ public class Grafo
         int s = RequireIndex(origin);
         int t = RequireIndex(dest);
 
-        // Validación previa con Union-Find. Nota: Union-Find trata las aristas como no dirigidas,
-        // por lo que es una condición necesaria; si pasa, Dijkstra confirma la alcanzabilidad dirigida.
         if (!_uf.Connected(s, t)) return null;
 
         double maxTime = 1, maxCost = 1;
@@ -204,6 +188,7 @@ public class Grafo
                     RouteCriteria.Time => e.Time,
                     RouteCriteria.Cost => e.Cost,
                     _ => timeWeight * (e.Time / maxTime) + (1 - timeWeight) * (e.Cost / maxCost)
+                    // w* time + (1- w) * cost
                 };
                 double nd = dist[u] + w;
                 if (nd < dist[e.To])
@@ -216,7 +201,7 @@ public class Grafo
             }
         }
 
-        if (double.IsPositiveInfinity(dist[t])) return null; // inalcanzable (dirigido)
+        if (double.IsPositiveInfinity(dist[t])) return null;
 
         int len = 0;
         for (int v = t; v != -1; v = prev[v]) len++;
@@ -228,18 +213,17 @@ public class Grafo
     }
 
     // ---------- Internos ----------
-
     private void AddDirected(int from, int to, int time, double cost)
     {
         EdgeNode? cur = _adj[from], last = null;
         while (cur != null)
         {
-            if (cur.To == to) { cur.Time = time; cur.Cost = cost; return; } // actualiza
+            if (cur.To == to) { cur.Time = time; cur.Cost = cost; return; }
             last = cur;
             cur = cur.Next;
         }
         var node = new EdgeNode(to, time, cost);
-        if (last == null) _adj[from] = node; else last.Next = node; // inserta al final
+        if (last == null) _adj[from] = node; else last.Next = node;
     }
 
     private int IndexOf(string name)

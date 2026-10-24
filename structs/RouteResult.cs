@@ -1,7 +1,7 @@
 using System.Globalization;
 using System.Text;
 
-namespace Estructuras;
+namespace Proyecto2EDD2.Estructuras;
 
 public enum RouteCriteria { Cost, Time, Combined }
 

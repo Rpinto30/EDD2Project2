@@ -1,12 +1,9 @@
 using System;
 using System.Globalization;
 
-namespace Estructuras;
+namespace Proyecto2EDD2.Estructuras;
 
-/// <summary>
-/// Tabla hash para Book con encadenamiento (chaining) para resolver colisiones.
-/// Función hash: polinomial sobre los dígitos del Id (regla de Horner, base 31).
-/// </summary>
+
 public class TablaHash
 {
     private class Node
@@ -29,15 +26,12 @@ public class TablaHash
         _buckets = new Node?[NextPrime(Math.Max(initialCapacity, 3))];
     }
 
-    // ---------- API pública ----------
-
     public void Insert(Book book)
     {
         ArgumentNullException.ThrowIfNull(book);
 
         int index = Hash(book.Id, _buckets.Length);
 
-        // Si el Id ya existe en la cadena, se reemplaza el libro.
         for (Node? cur = _buckets[index]; cur != null; cur = cur.Next)
         {
             if (cur.Book.Id == book.Id)
@@ -47,7 +41,6 @@ public class TablaHash
             }
         }
 
-        // Chaining: se inserta al inicio de la lista del bucket.
         _buckets[index] = new Node(book, _buckets[index]);
         _count++;
 
@@ -80,9 +73,6 @@ public class TablaHash
         }
     }
 
-    // ---------- Internos ----------
-
-    /// <summary>Hash polinomial: h = (h * 31 + c) mod m, recorriendo los caracteres del Id.</summary>
     private static int Hash(int id, int capacity)
     {
         string key = id.ToString(CultureInfo.InvariantCulture);

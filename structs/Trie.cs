@@ -3,15 +3,12 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Estructuras;
+namespace Proyecto2EDD2.Estructuras;
 
-/// <summary>
-/// Árbol de prefijos para títulos. Todo texto se normaliza: minúsculas, sin tildes,
-/// sin espacios ni caracteres especiales (solo a-z y 0-9).
-/// </summary>
+
 public class Trie
 {
-    private const int AlphabetSize = 36; // a-z (26) + 0-9 (10)
+    private const int AlphabetSize = 36;
 
     private class TrieNode
     {
@@ -19,7 +16,6 @@ public class Trie
         public bool IsEnd;
     }
 
-    // Arreglo dinámico mínimo de strings (sin usar List).
     private class StringBuffer
     {
         private string[] _items = new string[8];
@@ -47,7 +43,6 @@ public class Trie
     private readonly TrieNode _root = new();
 
     // ---------- API pública ----------
-
     public void Insert(string nameBook)
     {
         string word = Normalize(nameBook);
@@ -63,7 +58,6 @@ public class Trie
         node.IsEnd = true;
     }
 
-    /// <summary>Imprime las ramas (palabras completas) que parten del prefijo dado.</summary>
     public void ShowCoincidences(string nameBook)
     {
         string prefix = Normalize(nameBook);
@@ -81,7 +75,7 @@ public class Trie
             var sb = new StringBuilder("  ");
             for (int i = 0; i < word.Length; i++)
             {
-                if (i == prefix.Length) sb.Append(" | "); // separa prefijo del resto
+                if (i == prefix.Length) sb.Append(" | ");
                 else if (i > 0) sb.Append('-');
                 sb.Append(word[i]);
             }
@@ -89,7 +83,6 @@ public class Trie
         }
     }
 
-    /// <summary>Retorna todas las palabras (normalizadas) que empiezan con el prefijo.</summary>
     public string[] GetCoincidences(string nameBook)
     {
         string prefix = Normalize(nameBook);
@@ -103,7 +96,6 @@ public class Trie
         return results.ToArray();
     }
 
-    /// <summary>true si existe al menos una palabra que empiece con el prefijo.</summary>
     public bool Exist(string nameBook)
     {
         string prefix = Normalize(nameBook);
@@ -112,12 +104,9 @@ public class Trie
     }
 
     // ---------- Internos ----------
-
     public static string Normalize(string? text)
     {
         if (string.IsNullOrEmpty(text)) return string.Empty;
-
-        // Quita tildes: descompone (é -> e + ´) y elimina las marcas diacríticas.
         string decomposed = text.Normalize(NormalizationForm.FormD);
         var sb = new StringBuilder(decomposed.Length);
         foreach (char c in decomposed)
@@ -125,7 +114,6 @@ public class Trie
                 sb.Append(c);
 
         string lower = sb.ToString().ToLowerInvariant();
-        // Elimina espacios y cualquier carácter que no sea a-z o 0-9.
         return Regex.Replace(lower, "[^a-z0-9]", "");
     }
 
@@ -147,7 +135,7 @@ public class Trie
             if (child == null) continue;
             path.Append(IndexToChar(i));
             Collect(child, path, results);
-            path.Length--; // backtrack
+            path.Length--;
         }
     }
 
