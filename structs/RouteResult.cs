@@ -6,7 +6,7 @@ namespace Proyecto2EDD2.Estructuras;
 public enum RouteCriteria { Cost, Time, Combined }
 
 
-public record RouteResult(string[] Path, int TotalTime, double TotalCost, double Weight, RouteCriteria Criteria)
+public record RouteResult(string[] Path, double TotalTime, double TotalCost, double Weight, RouteCriteria Criteria)
 {
     public override string ToString()
     {
@@ -16,6 +16,6 @@ public record RouteResult(string[] Path, int TotalTime, double TotalCost, double
             if (i > 0) sb.Append(" -> ");
             sb.Append(Path[i]);
         }
-        return $"[{Criteria}] {sb} | Tiempo: {TotalTime}s | Costo: {TotalCost.ToString("0.##", CultureInfo.InvariantCulture)}";
+        return $"[Destino:{Criteria}] {sb} | Tiempo: {TotalTime}s | Costo: Q{TotalCost.ToString("0.##", CultureInfo.InvariantCulture)}";
     }
 }

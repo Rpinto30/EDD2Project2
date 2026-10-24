@@ -3,7 +3,6 @@ using System.Globalization;
 
 namespace Proyecto2EDD2.Estructuras;
 
-
 public class TablaHash
 {
     private class Node

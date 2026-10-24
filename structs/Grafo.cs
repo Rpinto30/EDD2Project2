@@ -9,10 +9,10 @@ public class Grafo
     private class EdgeNode
     {
         public int To;
-        public int Time;
+        public double Time;
         public double Cost;
         public EdgeNode? Next;
-        public EdgeNode(int to, int time, double cost) { To = to; Time = time; Cost = cost; }
+        public EdgeNode(int to, double time, double cost) { To = to; Time = time; Cost = cost; }
     }
 
     private string[] _names = new string[8];
@@ -27,7 +27,8 @@ public class Grafo
     {
         if (string.IsNullOrWhiteSpace(nameCenter))
             throw new ArgumentException("El nombre de la sede no puede estar vacío.");
-        if (IndexOf(nameCenter) >= 0) return; 
+        if (IndexOf(nameCenter) >= 0)
+            throw new ArgumentException("El nombre de la sede ya se encuentra en el registro."); 
 
         if (_count == _names.Length)
         {
@@ -53,6 +54,9 @@ public class Grafo
         int o = RequireIndex(origin);
         int d = RequireIndex(dest);
         if (o == d) throw new ArgumentException("Origen y destino no pueden ser la misma sede.");
+
+        //if (AlreadyConnect(o, dest)) throw new Exception("El origen ya contiene ese destino");
+        //if (AlreadyConnect(d, origin)) throw new Exception("El destino ya contiene ese origen");
 
         AddDirected(o, d, edge.Time, edge.Cost);
         if (edge.Bidirectional == 1)
@@ -121,7 +125,7 @@ public class Grafo
             Console.Write($"{_names[i]}: ");
             if (_adj[i] == null) { Console.WriteLine("(sin conexiones)"); continue; }
             for (EdgeNode? e = _adj[i]; e != null; e = e.Next)
-                Console.Write($"[{_names[e.To]} | {e.Time}s | {e.Cost:0.##}] ");
+                Console.Write($"[Destino: {_names[e.To]} | Tiempo: {e.Time}m | Costo: Q{e.Cost:0.##}] ");
             Console.WriteLine();
         }
     }
@@ -165,7 +169,7 @@ public class Grafo
 
         double[] dist = new double[_count];
         int[] prev = new int[_count];
-        int[] totTime = new int[_count];
+        double[] totTime = new double[_count];
         double[] totCost = new double[_count];
         bool[] done = new bool[_count];
         for (int i = 0; i < _count; i++) { dist[i] = double.PositiveInfinity; prev[i] = -1; }
@@ -213,7 +217,19 @@ public class Grafo
     }
 
     // ---------- Internos ----------
-    private void AddDirected(int from, int to, int time, double cost)
+
+    public bool AlreadyConnect(int index, string centerName)
+    {
+        Console.Write($"{_names[index]}: ");
+        if (_adj[index] == null) { return false; }
+        for (EdgeNode? e = _adj[index]; e != null; e = e.Next)
+        {
+            if (_names[e.To] == centerName) return true;
+        }
+        return false;
+    }
+
+    private void AddDirected(int from, int to, double time, double cost)
     {
         EdgeNode? cur = _adj[from], last = null;
         while (cur != null)
