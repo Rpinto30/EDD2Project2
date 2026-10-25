@@ -1,87 +1,87 @@
-Origin,Dest,Time,Cost,Bidirectional
-Biblioteca Nacional,Librería Letras Mixco,506,6.18,1
-Biblioteca Nacional,Librería Mundo Zona 18,1050,9.43,1
-Librería Mundo Zona 18,Librería La Fuente Zona 4,510,6.78,1
-Librería La Fuente Zona 4,Librería El Estudiante Zona 1,726,9.37,1
-Librería El Estudiante Zona 1,Biblioteca Zona 12,822,8.95,1
-Librería La Fuente Zona 4,Librería El Quetzal Zona 12,827,8.69,1
-Librería Mundo Zona 18,Biblioteca Villa Canales,1156,12.64,1
-Biblioteca Villa Canales,Biblioteca Municipal Zona 1,722,9.46,1
-Biblioteca Villa Canales,Librería Palabra Zona 2,813,9.57,1
-Librería El Quetzal Zona 12,Librería Pop Wuj Zona 5,1283,13.35,1
-Librería Pop Wuj Zona 5,Biblioteca Zona 4,613,7.22,1
-Biblioteca Zona 4,Biblioteca Villa Nueva,898,9.73,1
-Biblioteca Villa Nueva,Biblioteca Zona 10,795,9.03,1
-Biblioteca Villa Nueva,Librería Cervantes Villa Nueva,881,8.56,1
-Librería Cervantes Villa Nueva,Biblioteca Zona 11,474,5.82,1
-Biblioteca Zona 11,Biblioteca Zona 7,504,6.87,1
-Biblioteca Zona 10,Librería Rayuela Zona 10,1169,11.58,1
-Biblioteca Zona 7,Librería Horizonte Zona 15,1042,9.39,1
-Librería Pop Wuj Zona 5,Librería Tikal Zona 9,1217,12.94,1
-Biblioteca Zona 10,Biblioteca Central USAC,1531,15.25,1
-Biblioteca Central USAC,Librería Saber Zona 16,562,7.05,1
-Biblioteca Central USAC,Biblioteca Mixco,724,7.72,1
-Biblioteca Zona 12,Biblioteca Zona 16,1296,11.37,1
-Biblioteca Zona 10,Biblioteca Santa Catarina Pinula,1268,15.25,1
-Biblioteca Santa Catarina Pinula,Biblioteca San Miguel Petapa,1030,11.14,1
-Librería Palabra Zona 2,Biblioteca Chinautla,1595,16.79,1
-Biblioteca Chinautla,Librería Ateneo Zona 3,471,6.77,1
-Librería Ateneo Zona 3,Librería Paraíso Zona 11,564,6.92,1
-Biblioteca Municipal Zona 1,Librería Colonial Antigua,2831,21.49,1
-Librería Colonial Antigua,Biblioteca Antigua Guatemala,1498,13.06,1
-Biblioteca Antigua Guatemala,Biblioteca Chimaltenango,4948,31.77,1
-Librería Ateneo Zona 3,Librería Costa Escuintla,3869,53.03,1
-Librería Costa Escuintla,Biblioteca Escuintla,933,10.35,1
-Biblioteca Chimaltenango,Biblioteca Panajachel,4105,44.41,1
-Biblioteca Panajachel,Librería Atitlán Panajachel,783,8.19,1
-Librería Paraíso Zona 11,Biblioteca Cuilapa,5434,53.99,1
-Biblioteca Cuilapa,Biblioteca Jalapa,4610,43.17,1
-Biblioteca Jalapa,Biblioteca Jutiapa,3838,61.92,1
-Librería Atitlán Panajachel,Biblioteca Mazatenango,5230,89.63,1
-Biblioteca Mazatenango,Biblioteca Retalhuleu,5567,58.72,1
-Biblioteca Retalhuleu,Biblioteca Quetzaltenango,6781,108.39,1
-Biblioteca Quetzaltenango,Librería Xela Quetzaltenango,1009,11.52,1
-Librería Xela Quetzaltenango,Biblioteca Huehuetenango,5744,105.11,1
-Biblioteca San Miguel Petapa,Biblioteca Salamá,7186,101.2,1
-Biblioteca Salamá,Librería Verapaz Cobán,3010,35.6,1
-Librería Verapaz Cobán,Biblioteca Cobán,421,5.93,1
-Biblioteca Jutiapa,Biblioteca Zacapa,7803,118.24,1
-Biblioteca Zacapa,Librería Oriente Zacapa,698,7.43,1
-Librería Oriente Zacapa,Librería Caribe Puerto Barrios,8738,114.05,1
-Librería Caribe Puerto Barrios,Biblioteca Puerto Barrios,1286,11.05,1
-Biblioteca Cobán,Biblioteca Flores,22549,336.95,1
-Biblioteca Flores,Librería Petén Flores,1004,10.48,1
-Librería Palabra Zona 2,Biblioteca Municipal Zona 1,1137,10.87,0
-Biblioteca Zona 7,Librería Cervantes Villa Nueva,650,7.59,1
-Biblioteca Zona 12,Librería Letras Mixco,1197,10.27,1
-Librería Letras Mixco,Biblioteca Zona 16,1776,16.16,0
-Librería Saber Zona 16,Biblioteca Mixco,836,9.04,0
-Biblioteca San Miguel Petapa,Librería Rayuela Zona 10,1355,13.97,0
-Biblioteca Chinautla,Librería Paraíso Zona 11,778,7.39,0
-Librería Rayuela Zona 10,Librería Cervantes Villa Nueva,1138,11.37,1
-Biblioteca Zona 7,Librería Tikal Zona 9,1215,11.1,0
-Librería El Quetzal Zona 12,Librería Mundo Zona 18,1011,10.28,1
-Librería Mundo Zona 18,Librería El Estudiante Zona 1,912,10.33,1
-Librería Horizonte Zona 15,Biblioteca Zona 11,1355,11.91,1
-Biblioteca Antigua Guatemala,Biblioteca Municipal Zona 1,3447,27.79,0
-Biblioteca Chimaltenango,Librería Colonial Antigua,3058,51.1,1
-Biblioteca Escuintla,Librería Ateneo Zona 3,4492,62.09,1
-Biblioteca Quetzaltenango,Biblioteca Huehuetenango,6835,113.0,1
-Biblioteca Cobán,Biblioteca Salamá,2846,43.43,1
-Biblioteca Puerto Barrios,Librería Oriente Zacapa,10360,144.31,1
-Biblioteca Cuilapa,Biblioteca Jutiapa,5060,82.01,1
-Librería Atitlán Panajachel,Biblioteca Chimaltenango,4495,52.88,1
-Librería Petén Flores,Biblioteca Cobán,20675,225.82,1
-Librería Oriente Zacapa,Biblioteca Jutiapa,7910,145.78,1
-Biblioteca Quetzaltenango,Biblioteca Zona 12,9971,469.29,1
-Biblioteca Salamá,Biblioteca Zona 7,4838,257.01,1
-Biblioteca Zacapa,Librería Petén Flores,12991,708.46,1
-Biblioteca Villa Nueva,Librería Verapaz Cobán,5769,395.84,1
-Biblioteca Escuintla,Biblioteca Santa Catarina Pinula,4048,254.56,1
-Biblioteca Flores,Librería Costa Escuintla,19774,1102.34,1
-Biblioteca Zona 16,Librería Atitlán Panajachel,4688,212.45,1
-Biblioteca Salamá,Librería Pop Wuj Zona 5,4768,290.38,1
-Biblioteca Panajachel,Biblioteca Santa Catarina Pinula,4977,334.26,1
-Librería Pop Wuj Zona 5,Librería Xela Quetzaltenango,10225,423.45,1
-Biblioteca Lanquín,Librería Semuc,1850,14.84,1
-Librería Semuc,Biblioteca Cahabón,2343,16.96,1
+Origin|Dest|Time|Cost|Bidirectional
+Biblioteca Nacional|Librería Letras Mixco|506|6.18|1
+Biblioteca Nacional|Librería Mundo Zona 18|1050|9.43|1
+Librería Letras Mixco|Biblioteca Zona 16|1776|16.16|0
+Biblioteca Zona 12|Librería El Estudiante Zona 1|822|8.95|1
+Biblioteca Zona 12|Biblioteca Zona 16|1296|11.37|1
+Biblioteca Zona 12|Librería Letras Mixco|1197|10.27|1
+Biblioteca Zona 12|Biblioteca Quetzaltenango|9971|469.29|1
+Biblioteca Zona 16|Librería Atitlán Panajachel|4688|212.45|1
+Librería La Fuente Zona 4|Librería Mundo Zona 18|510|6.78|1
+Librería La Fuente Zona 4|Librería El Quetzal Zona 12|827|8.69|1
+Biblioteca Villa Canales|Librería Mundo Zona 18|1156|12.64|1
+Biblioteca Villa Canales|Librería Palabra Zona 2|813|9.57|1
+Librería El Quetzal Zona 12|Librería Pop Wuj Zona 5|1283|13.35|1
+Librería El Quetzal Zona 12|Librería Mundo Zona 18|1011|10.28|1
+Librería El Estudiante Zona 1|Librería La Fuente Zona 4|726|9.37|1
+Librería El Estudiante Zona 1|Librería Mundo Zona 18|912|10.33|1
+Biblioteca Quetzaltenango|Biblioteca Retalhuleu|6781|108.39|1
+Biblioteca Quetzaltenango|Librería Xela Quetzaltenango|1009|11.52|1
+Biblioteca Quetzaltenango|Biblioteca Huehuetenango|6835|113|1
+Biblioteca Municipal Zona 1|Biblioteca Villa Canales|722|9.46|1
+Biblioteca Municipal Zona 1|Librería Colonial Antigua|2831|21.49|1
+Librería Palabra Zona 2|Biblioteca Municipal Zona 1|1137|10.87|0
+Librería Pop Wuj Zona 5|Biblioteca Salamá|4768|290.38|1
+Librería Pop Wuj Zona 5|Librería Xela Quetzaltenango|10225|423.45|1
+Biblioteca Retalhuleu|Biblioteca Mazatenango|5567|58.72|1
+Biblioteca Huehuetenango|Librería Xela Quetzaltenango|5744|105.11|1
+Biblioteca Panajachel|Librería Atitlán Panajachel|783|8.19|1
+Biblioteca Mazatenango|Librería Atitlán Panajachel|5230|89.63|1
+Biblioteca Chimaltenango|Biblioteca Panajachel|4105|44.41|1
+Biblioteca Chimaltenango|Librería Colonial Antigua|3058|51.1|1
+Biblioteca Chimaltenango|Librería Atitlán Panajachel|4495|52.88|1
+Biblioteca Chinautla|Librería Palabra Zona 2|1595|16.79|1
+Biblioteca Chinautla|Librería Ateneo Zona 3|471|6.77|1
+Biblioteca Chinautla|Librería Paraíso Zona 11|778|7.39|0
+Biblioteca Zona 4|Librería Pop Wuj Zona 5|613|7.22|1
+Biblioteca Zona 4|Biblioteca Villa Nueva|898|9.73|1
+Librería Tikal Zona 9|Librería Pop Wuj Zona 5|1217|12.94|1
+Biblioteca Salamá|Librería Verapaz Cobán|3010|35.6|1
+Biblioteca Santa Catarina Pinula|Biblioteca Escuintla|4048|254.56|1
+Biblioteca Santa Catarina Pinula|Biblioteca Panajachel|4977|334.26|1
+Biblioteca Antigua Guatemala|Librería Colonial Antigua|1498|13.06|1
+Biblioteca Antigua Guatemala|Biblioteca Chimaltenango|4948|31.77|1
+Biblioteca Antigua Guatemala|Biblioteca Municipal Zona 1|3447|27.79|0
+Librería Ateneo Zona 3|Librería Costa Escuintla|3869|53.03|1
+Librería Ateneo Zona 3|Biblioteca Escuintla|4492|62.09|1
+Librería Paraíso Zona 11|Librería Ateneo Zona 3|564|6.92|1
+Librería Paraíso Zona 11|Biblioteca Cuilapa|5434|53.99|1
+Biblioteca Villa Nueva|Librería Cervantes Villa Nueva|881|8.56|1
+Biblioteca Villa Nueva|Librería Verapaz Cobán|5769|395.84|1
+Biblioteca San Miguel Petapa|Biblioteca Santa Catarina Pinula|1030|11.14|1
+Biblioteca San Miguel Petapa|Biblioteca Salamá|7186|101.2|1
+Biblioteca San Miguel Petapa|Librería Rayuela Zona 10|1355|13.97|0
+Biblioteca Cobán|Librería Verapaz Cobán|421|5.93|1
+Biblioteca Cobán|Biblioteca Flores|22549|336.95|1
+Biblioteca Cobán|Biblioteca Salamá|2846|43.43|1
+Biblioteca Cobán|Librería Petén Flores|20675|225.82|1
+Biblioteca Zona 7|Biblioteca Zona 11|504|6.87|1
+Biblioteca Zona 7|Librería Horizonte Zona 15|1042|9.39|1
+Biblioteca Zona 7|Librería Cervantes Villa Nueva|650|7.59|1
+Biblioteca Zona 7|Librería Tikal Zona 9|1215|11.1|0
+Biblioteca Zona 7|Biblioteca Salamá|4838|257.01|1
+Biblioteca Zona 10|Biblioteca Villa Nueva|795|9.03|1
+Biblioteca Zona 10|Librería Rayuela Zona 10|1169|11.58|1
+Biblioteca Zona 10|Biblioteca Santa Catarina Pinula|1268|15.25|1
+Biblioteca Escuintla|Librería Costa Escuintla|933|10.35|1
+Biblioteca Cuilapa|Biblioteca Jutiapa|5060|82.01|1
+Librería Rayuela Zona 10|Librería Cervantes Villa Nueva|1138|11.37|1
+Biblioteca Flores|Librería Petén Flores|1004|10.48|1
+Biblioteca Flores|Librería Costa Escuintla|19774|1102.34|1
+Biblioteca Zona 11|Librería Cervantes Villa Nueva|474|5.82|1
+Biblioteca Zona 11|Librería Horizonte Zona 15|1355|11.91|1
+Biblioteca Central USAC|Biblioteca Zona 10|1531|15.25|1
+Biblioteca Central USAC|Librería Saber Zona 16|562|7.05|1
+Biblioteca Central USAC|Biblioteca Mixco|724|7.72|1
+Biblioteca Jalapa|Biblioteca Cuilapa|4610|43.17|1
+Biblioteca Jalapa|Biblioteca Jutiapa|3838|61.92|1
+Biblioteca Jutiapa|Librería Oriente Zacapa|7910|145.78|1
+Biblioteca Zacapa|Biblioteca Jutiapa|7803|118.24|1
+Biblioteca Zacapa|Librería Oriente Zacapa|698|7.43|1
+Biblioteca Zacapa|Librería Petén Flores|12991|708.46|1
+Librería Saber Zona 16|Biblioteca Mixco|836|9.04|0
+Librería Caribe Puerto Barrios|Librería Oriente Zacapa|8738|114.05|1
+Biblioteca Puerto Barrios|Librería Caribe Puerto Barrios|1286|11.05|1
+Biblioteca Puerto Barrios|Librería Oriente Zacapa|10360|144.31|1
+Biblioteca Lanquín|Librería Semuc|1850|14.84|1
+Librería Semuc|Biblioteca Cahabón|2343|16.96|1

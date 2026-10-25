@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Xml.Linq;
 
 namespace Proyecto2EDD2.Estructuras;
 
@@ -184,4 +185,26 @@ public class TablaHash
             if (n % i == 0) return false;
         return true;
     }
+
+    public string[][] GetCleanNames()
+    {
+        string[][] result = new string[_count][];
+        int k = 0;
+
+        for (int i = 0; i < _buckets.Length; i++)
+        {
+            for (Node? cur = _buckets[i]; cur != null; cur = cur.Next)
+            {
+                result[k++] = new[]
+                {
+                cur.Book.Id.ToString(CultureInfo.InvariantCulture),
+                cur.Book.Title,
+                cur.Book.Author,
+                cur.Book.Center
+            };
+            }
+        }
+        return result;
+    }
+
 }

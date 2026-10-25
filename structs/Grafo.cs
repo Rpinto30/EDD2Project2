@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace Proyecto2EDD2.Estructuras;
@@ -330,5 +331,76 @@ public class Grafo
         int i = IndexOf(name);
         if (i < 0) throw new InvalidOperationException($"La sede \"{name}\" no existe en el grafo.");
         return i;
+    }
+
+    public string[][] GetCleanNames()
+    {
+        string[] temp = new string[_names.Length];
+        int k = 0;
+
+        for (int i = 0; i < _names.Length; i++)
+            if (!string.IsNullOrEmpty(_names[i]))
+                temp[k++] = _names[i]!;
+
+        string[][] result = new string[k][];
+        for (int i = 0; i < k; i++) 
+            result[i] = new string[]{ temp[i] };
+        return result;
+    }
+
+    public string[][] GetConnections()
+    {
+        if (_count == 0) return Array.Empty<string[]>();
+        int maxRows = 0;
+        for (int i = 0; i < _count; i++)
+            for (EdgeNode? e = _adj[i]; e != null; e = e.Next) maxRows++;
+
+        string[][] rows = new string[maxRows][];
+        int k = 0;
+
+        bool[] visited = new bool[_count];
+        var queue = new Queue<int>();
+
+        for (int s = 0; s < _count; s++)
+        {
+            if (visited[s]) continue;
+            visited[s] = true;
+            queue.Enqueue(s);
+
+            while (queue.Count > 0)
+            {
+                int u = queue.Dequeue();
+                for (EdgeNode? e = _adj[u]; e != null; e = e.Next)
+                {
+                    EdgeNode? back = FindEdge(e.To, u);
+                    bool isPair = back != null && back.Time == e.Time && back.Cost == e.Cost;
+                    if (!isPair || u < e.To)
+                    {
+                        rows[k++] = new[]
+                        {
+                            _names[u],
+                            _names[e.To],
+                            e.Time.ToString(CultureInfo.InvariantCulture),
+                            e.Cost.ToString(CultureInfo.InvariantCulture),
+                            isPair ? "1" : "0"
+                        };
+                    }
+
+                    if (visited[e.To]) continue;
+                    visited[e.To] = true;
+                    queue.Enqueue(e.To);
+                }
+            }
+        }
+
+        Array.Resize(ref rows, k);
+        return rows;
+    }
+
+    private EdgeNode? FindEdge(int from, int to)
+    {
+        for (EdgeNode? e = _adj[from]; e != null; e = e.Next)
+            if (e.To == to) return e;
+        return null;
     }
 }

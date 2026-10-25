@@ -8,7 +8,7 @@ namespace Proyecto2EDD2.Estructuras;
 
 public class Trie
 {
-    private const int AlphabetSize = 37;
+    private const int AlphabetSize = 38;
 
     private class TrieNode
     {
@@ -178,7 +178,7 @@ public class Trie
     private static int CharToIndex(char c)
     {
         if (c == ' ') return 36;
-        
+        else if (c == 'ñ') return 37;
 
         if (c <= '9')
             return c - '0' + 26;
@@ -187,6 +187,7 @@ public class Trie
     }
     private static char IndexToChar(int i) {
         if (i == 36) return ' ';
+        else if (i == 37) return 'ñ';
 
         if (i >= 26)
             return (char)('0' + (i - 26));
