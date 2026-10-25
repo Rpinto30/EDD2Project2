@@ -102,6 +102,43 @@ public class TablaHash
 
     public int GetAutoIncrement() => this.prevId+1;
 
+
+    public bool Remove(int id)
+    {
+        int index = Hash(id, _buckets.Length);
+        Node? prev = null;
+        for (Node? cur = _buckets[index]; cur != null; prev = cur, cur = cur.Next)
+        {
+            if (cur.Book.Id != id) continue;
+
+            if (prev == null) _buckets[index] = cur.Next; //head
+            else prev.Next = cur.Next; //any else
+            _count--;
+            return true;
+        }
+        return false;
+    }
+
+    public int DisconnectCenter(string centerName)
+    {
+        if (string.IsNullOrWhiteSpace(centerName)) return 0;
+        string target = centerName.Trim();
+        int affected = 0;
+
+        for (int i = 0; i < _buckets.Length; i++)
+        {
+            for (Node? cur = _buckets[i]; cur != null; cur = cur.Next)
+            {
+                if (string.Equals(cur.Book.Center?.Trim(), target, StringComparison.OrdinalIgnoreCase))
+                {
+                    cur.Book = cur.Book with { Center = "N/A" }; 
+                    affected++;
+                }
+            }
+        }
+        return affected;
+    }
+
     private static int Hash(int id, int capacity)
     {
         string key = id.ToString(CultureInfo.InvariantCulture);

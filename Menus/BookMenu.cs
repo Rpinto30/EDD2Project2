@@ -135,6 +135,7 @@ namespace Proyecto2EDD2.Menus
         static void ShowBookByName()
         {
             Book? book = SearchNameBook();
+            if (book != null)
             PrintBook(book);
         }
 
@@ -148,43 +149,65 @@ namespace Proyecto2EDD2.Menus
         {
             if (book != null)
             {
-                Console.WriteLine($"============== SELECCIONA NUEVA SEDE PARA \"{book.Title}\" (SEDE ACTUAL: {book.Center}) ==============");
+                string bookCenter = book.Center;
+                if (bookCenter == "N/A")
+                {
+                    Console.Write("Advertencia: El libro no tiene una sede actual, deseas agregar una? (Y/n): ");
+                    string y = Console.ReadLine() ?? "n";
+                    if (y == "Y")
+                    {
+                        string a = SolCenter();
+                        Console.Clear();
+                        if (a == string.Empty) return;
+
+                        bookCenter = a;
+                        Book update = new Book(
+                            book.Id, book.Title, book.Author, a
+                            );
+                        Universal.Universal.table.UpdateBookByID(book.Id, update);
+                        Console.WriteLine($"El libro \"{book.Title}\" ha sido re-asignado a: {a}");
+                        Console.Write("Deseas continuar con el proceso de traslación? (Y/n): ");
+                        string y2 = Console.ReadLine() ?? "n";
+                        if (y2 != "Y") return;
+                    }
+                }
+
+                Console.WriteLine($"============== SELECCIONA NUEVA SEDE PARA \"{book.Title}\" (SEDE ACTUAL: {bookCenter}) ==============");
                 string b = SolCenter();
                 Console.Clear();
                 if (b == string.Empty) return;
-                else if (b == book.Center)
+                else if (b == bookCenter)
                 {
                     Console.WriteLine("No puedes trasladar un libro a su sede actual");
                     return;
                 }
 
-                RouteResult? r = CenterMenu.CalcBoth(book.Center, b);
-                CenterMenu.PrintRoute(r);
-
-                string op = string.Empty;
-
-                Console.WriteLine();
-                do
+                RouteResult? r = CenterMenu.CalcBoth(bookCenter, b);
+                
+                if (r != null)
                 {
-                    Console.WriteLine("1) Aceptar traslado\n" +
-                                      "2) Cancelar traslado");
-                    Console.Write("Deseas confirmar el traslado (considera el costo y tiempo): ");
-                    op = Console.ReadLine() ?? "";
+                    CenterMenu.PrintRoute(r);
+
+                    Console.WriteLine();
+
+                    Console.Write("Deseas confirmar el traslado (considera el costo y tiempo) (Y/n): ");
+                    string op = Console.ReadLine() ?? "n";
                     Console.Clear();
 
-                    if (op == "1")
+                    if (op == "Y")
                     {
-                        string old = book.Center;
                         Book update = new Book(
                             book.Id, book.Title, book.Author, b
                             );
                         Universal.Universal.table.UpdateBookByID(book.Id, update);
-                        Console.WriteLine($"El libro \"{book.Title}\" ha sido trasladado: {old} -> {b}");
-                        return;
+                        Console.WriteLine($"El libro \"{book.Title}\" ha sido trasladado: {bookCenter} -> {b}");
                     }
-                    else return;
-
-                } while (op != "1" || op != "2");
+                }
+                else
+                {
+                    Console.WriteLine("Lo sentimos, no existe ninguna ruta disponible que conecte ambas redes de distribución");
+                    Console.WriteLine("Parece que no se pudo completar el proceso de traslación...");
+                }
             }
             else
             {
@@ -223,6 +246,60 @@ namespace Proyecto2EDD2.Menus
             } while (op != "2" || op != "1");
         }
 
+
+        static void RemoveBook(Book? book)
+        {
+            Console.Write($"> Estas seguro en eliminar el libro: {book.Title}? (Y/n): ");
+            string y = Console.ReadLine() ?? "n";
+            Console.Clear();
+            if (y == "Y")
+            {
+
+                if (book != null)
+                {
+                    Universal.Universal.table.Remove(book.Id);
+                    Universal.Universal.trie.Remove(book.Title);
+                    Console.WriteLine("El libro ha sido removido del registro");
+                }
+                else
+                {
+                    Console.WriteLine("No se ha encontrado ese libro");
+                }
+            }
+        }
+
+        static void DeleteBook()
+        {
+            string op = string.Empty;
+            Book? book = null;
+            do
+            {
+                Console.WriteLine("============== REMOVER LIBRO ==============");
+                Console.WriteLine("1) Buscar libro por ID\n" +
+                                "2) Buscar libro por nombre\n" +
+                                "3) Cancelar");
+                Console.Write("Ingresa una opción para buscar el libro: ");
+                op = Console.ReadLine() ?? "";
+                Console.Clear();
+                switch (op)
+                {
+                    case "1":
+                        Console.WriteLine("============== REMOVER LIBRO ==============");
+                        book = SearchIDBook();
+                        RemoveBook(book);
+
+                        return;
+                    case "2":
+                        Console.WriteLine("============== REMOVER LIBRO ==============");
+                        book = SearchNameBook();
+                        RemoveBook(book);
+                        return;
+                    case "3":
+                        return;
+                }
+            } while (op != "2" || op != "1");
+        }
+
         public static void SetMenuBooks()
         {
             string opBook = string.Empty;
@@ -234,8 +311,9 @@ namespace Proyecto2EDD2.Menus
                                     "2) Buscar libro por ID\n" +
                                     "3) Buscar libro por nombre\n" +
                                     "4) Ver todo el registro\n" +
-                                    "5) Trasladar libro\n" +
-                                    "6) Salir");
+                                    "5) Eliminar registro de un libro\n" +
+                                    "6) Trasladar libro\n" +
+                                    "7) Salir");
                 Console.Write("> Ingresa una opción: ");
                 opBook = Console.ReadLine() ?? "";
                 Console.Clear();
@@ -254,16 +332,19 @@ namespace Proyecto2EDD2.Menus
                         ShowTable();
                         break;
                     case "5":
+                        DeleteBook();
+                        break;
+                    case "6":
                         TranslateBook();
                         break;
-                    case "6": break;
+                    case "7": break;
                     default:
                         Console.WriteLine("La opción seleccionada no es valida, vuelve a intentarlo");
                         Universal.Universal.WaitEntry();
                         break;
                 }
                 Console.WriteLine();
-            } while (opBook != "6");
+            } while (opBook != "7");
         }
     }
 }

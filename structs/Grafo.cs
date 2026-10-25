@@ -18,7 +18,7 @@ public class Grafo
     private string[] _names = new string[8];
     private EdgeNode?[] _adj = new EdgeNode?[8];
     private int _count;
-    private readonly UnionFind _uf = new();
+    private UnionFind _uf = new();
 
     public int NodeCount => _count;
 
@@ -228,6 +228,69 @@ public class Grafo
 
         return new RouteResult(path, totTime[t], totCost[t], dist[t], criteria);
     }
+
+    public bool RemoveConnection(string origin, string dest, bool bidirectional = false)
+    {
+        int o = RequireIndex(origin);
+        int d = RequireIndex(dest);
+
+        bool removed = RemoveDirected(o, d);
+        if (bidirectional) removed |= RemoveDirected(d, o);
+
+        if (removed) RebuildUnionFind();
+        return removed;
+    }
+
+    public bool RemoveNode(string nameCenter)
+    {
+        int r = IndexOf(nameCenter);
+        if (r < 0) return false;
+
+        // Remove edges
+        for (int i = 0; i < _count; i++)
+            if (i != r) RemoveDirected(i, r);
+
+        for (int i = r; i < _count - 1; i++)
+        {
+            _names[i] = _names[i + 1];
+            _adj[i] = _adj[i + 1];
+        }
+        _count--;
+        _names[_count] = null!;
+        _adj[_count] = null;
+
+        // renum dest
+        for (int i = 0; i < _count; i++)
+            for (EdgeNode? e = _adj[i]; e != null; e = e.Next)
+                if (e.To > r) e.To--;
+
+        RebuildUnionFind();
+        return true;
+    }
+
+    private bool RemoveDirected(int from, int to)
+    {
+        EdgeNode? prev = null;
+        for (EdgeNode? cur = _adj[from]; cur != null; prev = cur, cur = cur.Next)
+        {
+            if (cur.To != to) continue;
+            if (prev == null) _adj[from] = cur.Next;
+            else prev.Next = cur.Next;
+            return true;
+        }
+        return false;
+    }
+
+   
+    private void RebuildUnionFind()
+    {
+        _uf = new UnionFind(Math.Max(_count, 1));
+        for (int i = 0; i < _count; i++) _uf.MakeSet();
+        for (int i = 0; i < _count; i++)
+            for (EdgeNode? e = _adj[i]; e != null; e = e.Next)
+                _uf.Union(i, e.To);
+    }
+
 
     // ---------- Internos ----------
 

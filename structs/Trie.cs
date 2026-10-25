@@ -102,6 +102,13 @@ public class Trie
         return FindNode(prefix) != null;
     }
 
+    public bool Remove(string nameBook)
+    {
+        string word = Normalize(nameBook);
+        if (word.Length == 0) return false;
+        return RemoveRec(_root, word, 0, out _);
+    }
+
     // ---------- Internos ----------
     public static string Normalize(string? text)
     {
@@ -136,6 +143,36 @@ public class Trie
             Collect(child, path, results);
             path.Length--;
         }
+    }
+
+    private static bool RemoveRec(TrieNode node, string word, int depth, out bool prune)
+    {
+        prune = false;
+
+        if (depth == word.Length)
+        {
+            if (!node.IsEnd) return false;
+            node.IsEnd = false;
+            prune = !HasChildren(node);
+            return true;
+        }
+
+        int idx = CharToIndex(word[depth]);
+        TrieNode? child = node.Children[idx];
+        if (child == null) return false;
+
+        bool removed = RemoveRec(child, word, depth + 1, out bool pruneChild);
+        if (pruneChild) node.Children[idx] = null;
+
+        prune = removed && !node.IsEnd && !HasChildren(node);
+        return removed;
+    }
+
+    private static bool HasChildren(TrieNode node)
+    {
+        for (int i = 0; i < AlphabetSize; i++)
+            if (node.Children[i] != null) return true;
+        return false;
     }
 
     private static int CharToIndex(char c)

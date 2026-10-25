@@ -181,11 +181,17 @@ namespace Proyecto2EDD2.Menus
             string nameA = Console.ReadLine() ?? "";
             Console.Write("> Ingresa el nombre de la sede de destino: ");
             string nameB = Console.ReadLine() ?? "";
-
-            if (Universal.Universal.graph.IsSameRed(nameA, nameB))
+            Console.Clear();
+            try
             {
-                Console.WriteLine($"La sede {nameA} y la sede {nameB} ya se encuentran conectadas");
-                return;
+                if (Universal.Universal.graph.IsSameRed(nameA, nameB))
+                {
+                    Console.WriteLine($"La sede {nameA} y la sede {nameB} ya se encuentran conectadas");
+                    return;
+                }
+            } catch(Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
             }
 
             string op = string.Empty;
@@ -210,7 +216,25 @@ namespace Proyecto2EDD2.Menus
             
         }
 
-        public static void SetMenuCenter()
+        static void DeleteCenter()
+        {
+            Console.Write("> Ingresa el nombre de la sede: ");
+            string nameA = Console.ReadLine() ?? "";
+
+            Console.Write($"> Estas seguro en eliminar la sede: {nameA}? (Y/n): ");
+            string y = Console.ReadLine() ?? "n";
+            Console.Clear();
+            if (y == "Y")
+            {
+                Universal.Universal.table.DisconnectCenter(nameA);
+                Universal.Universal.graph.RemoveNode(nameA);
+
+                Console.WriteLine($"La sede {nameA} fue eliminada");
+            }
+        }
+
+
+        static void MenuCenters()
         {
             string opBook = string.Empty;
 
@@ -219,14 +243,10 @@ namespace Proyecto2EDD2.Menus
                 Console.WriteLine("============== GESTION DE SEDES ==============");
                 Console.WriteLine("1) Registrar una sede\n" +
                                     "2) Conectar sedes\n" +
-                                    "3) Calcular sede más rápida\n" +
-                                    "4) Calcular sede más económica\n" +
-                                    "5) Calcular sede más rápida y económica\n" +
-                                    "6) Ver sede por amplitud\n" +
-                                    "7) Ver sede por profundidad\n" +
-                                    "8) Ver conexion entre sedes\n" +
-                                    "9) Comprobar que dos sedes se encuentran en la misma red de distribución\n" +
-                                    "10) Salir");
+                                    "3) Ver sedes por amplitud\n" +
+                                    "4) Ver sedes por profundidad\n" +
+                                    "5) Eliminar sede\n" +
+                                    "6) Salir");
                 Console.Write("> Ingresa una opción: ");
                 opBook = Console.ReadLine() ?? "";
                 Console.Clear();
@@ -239,33 +259,97 @@ namespace Proyecto2EDD2.Menus
                         ConnectCenter();
                         break;
                     case "3":
-                        ShowRouteByTime();
-                        break;
-                    case "4":
-                        ShowRouteByEco();
-                        break;
-                    case "5":
-                        ShowRouteByBoth();
-                        break;
-                    case "6":
                         ShowBFS();
                         break;
-                    case "7":
+                    case "4":
                         ShowDFS();
                         break;
-                    case "8":
-                        Universal.Universal.graph.ShowMatrix();
+                    case "5":
+                        DeleteCenter();
                         break;
-                    case "9": 
-                        SameRed();
+                    case "6":
                         break;
-                    case "10": break;
                     default:
                         Console.WriteLine("La opción seleccionada no es valida, vuelve a intentarlo");
                         break;
                 }
                 Console.WriteLine();
-            } while (opBook != "10");
+            } while (opBook != "6");
+        }
+
+        static void MenuRoutes()
+        {
+            string opBook = string.Empty;
+
+            do
+            {
+                Console.WriteLine("============== GESTION DE RUTAS ==============");
+                Console.WriteLine(  "1) Calcular ruta más rápida\n" +
+                                    "2) Calcular ruta más económica\n" +
+                                    "3) Calcular ruta más rápida y económica\n" +
+                                    "4) Ver todas las rutas\n" +
+                                    "5) Comprobar que dos sedes se encuentran en la misma red de distribución\n" +
+                                    "6) Salir");
+                Console.Write("> Ingresa una opción: ");
+                opBook = Console.ReadLine() ?? "";
+                Console.Clear();
+                switch (opBook)
+                {
+                    case "1":
+                        ShowRouteByTime();
+                        break;
+                    case "2":
+                        ShowRouteByEco();
+                        break;
+                    case "3":
+                        ShowRouteByBoth();
+                        break;
+                    case "4":
+                        Universal.Universal.graph.ShowMatrix();
+                        break;
+                    case "5":
+                        SameRed();
+                        break;
+                    case "6":
+                        break;
+                    default:
+                        Console.WriteLine("La opción seleccionada no es valida, vuelve a intentarlo");
+                        break;
+                }
+                Console.WriteLine();
+            } while (opBook != "6");
+        }
+
+        public static void SetMenuCenter()
+        {
+            string opBook = string.Empty;
+
+            do
+            {
+                Console.WriteLine("============== GESTION DE SEDES Y RUTAS ==============");
+                Console.WriteLine("1) Gestionar y ver sedes\n"+
+                                    "2) Ver rutas\n"+
+                                    "3) Salir");
+                Console.Write("> Ingresa una opción: ");
+                opBook = Console.ReadLine() ?? "";
+                Console.Clear();
+                switch (opBook)
+                {
+                    case "1":
+                        MenuCenters();
+                        break;
+                    case "2":
+                        MenuRoutes();
+                        break;
+                    case "3":
+                        break;
+                    
+                    default:
+                        Console.WriteLine("La opción seleccionada no es valida, vuelve a intentarlo");
+                        break;
+                }
+                Console.WriteLine();
+            } while (opBook != "3");
         }
     }
     
