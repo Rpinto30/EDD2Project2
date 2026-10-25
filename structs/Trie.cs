@@ -8,7 +8,7 @@ namespace Proyecto2EDD2.Estructuras;
 
 public class Trie
 {
-    private const int AlphabetSize = 36;
+    private const int AlphabetSize = 37;
 
     private class TrieNode
     {
@@ -44,7 +44,7 @@ public class Trie
 
     public void Insert(string nameBook)
     {
-        string word = Normalize(nameBook);
+        string word = nameBook;//Normalize(nameBook);
         if (word.Length == 0) return;
 
         TrieNode node = _root;
@@ -59,7 +59,7 @@ public class Trie
 
     public void ShowCoincidences(string nameBook)
     {
-        string prefix = Normalize(nameBook);
+        string prefix = nameBook;//Normalize(nameBook);
         string[] matches = GetCoincidences(nameBook);
 
         Console.WriteLine($"=== Coincidencias para \"{prefix}\" ===");
@@ -84,7 +84,7 @@ public class Trie
 
     public string[] GetCoincidences(string nameBook)
     {
-        string prefix = Normalize(nameBook);
+        string prefix = nameBook;//Normalize(nameBook);
         if (prefix.Length == 0) return Array.Empty<string>();
 
         TrieNode? node = FindNode(prefix);
@@ -97,7 +97,7 @@ public class Trie
 
     public bool Exist(string nameBook)
     {
-        string prefix = Normalize(nameBook);
+        string prefix = nameBook;//Normalize(nameBook);
         if (prefix.Length == 0) return false;
         return FindNode(prefix) != null;
     }
@@ -138,6 +138,22 @@ public class Trie
         }
     }
 
-    private static int CharToIndex(char c) => c <= '9' ? c - '0' + 26 : c - 'a';
-    private static char IndexToChar(int i) => i >= 26 ? (char)('0' + (i - 26)) : (char)('a' + i);
+    private static int CharToIndex(char c)
+    {
+        if (c == ' ') return 36;
+        
+
+        if (c <= '9')
+            return c - '0' + 26;
+        else
+            return c - 'a';
+    }
+    private static char IndexToChar(int i) {
+        if (i == 36) return ' ';
+
+        if (i >= 26)
+            return (char)('0' + (i - 26));
+        else
+            return (char)('a' + i);
+    }
 }

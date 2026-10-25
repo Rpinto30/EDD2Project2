@@ -57,6 +57,17 @@ public class TablaHash
         return null;
     }
 
+    public Book? SearchByName(string nameBook)
+    {
+        for (int i = 0; i < _buckets.Length; i++)
+        {
+            if (_buckets[i] == null) continue;
+            for (Node? cur = _buckets[i]; cur != null; cur = cur.Next)
+                if (cur.Book.Title == nameBook) return cur.Book;
+        }
+        return null;
+    }
+
     public void ShowTable()
     {
         Console.WriteLine($"=== Tabla Hash (capacidad: {_buckets.Length}, elementos: {_count}) ===");
@@ -72,8 +83,20 @@ public class TablaHash
             {
                 Console.WriteLine($"\t({cur.Book.Id}: [Titulo: \"{cur.Book.Title}\" | Autor: {cur.Book.Author}]) | Disponible en: {cur.Book.Center}");
             }
-            Console.WriteLine("-----------------------------------------------------------------");
+        }
+    }
 
+
+    public void UpdateBookByID(int id, Book new_book)
+    {
+        int index = Hash(id, _buckets.Length);
+        for (Node? cur = _buckets[index]; cur != null; cur = cur.Next)
+        {
+            if (cur.Book.Id == id)
+            {
+                cur.Book = new_book;
+                break;
+            }
         }
     }
 

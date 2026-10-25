@@ -65,6 +65,16 @@ public class Grafo
         _uf.Union(o, d);
     }
 
+    public bool IsSameRed(string origin, string dest)
+    {
+        int o = RequireIndex(origin);
+        int d = RequireIndex(dest);
+        if (o == d) throw new ArgumentException("Origen y destino son la misma sede.");
+
+        bool connected = _uf.Connected(o, d);
+        return connected;
+    }
+
     // ---------- Recorridos ----------
     public void Dfs()
     {
