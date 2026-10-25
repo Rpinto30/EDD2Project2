@@ -117,6 +117,9 @@ public class Grafo
         Console.WriteLine(sb.ToString());
     }
 
+    public string[] GetNames() => this._names;
+    
+
     public void ShowMatrix()
     {
         Console.WriteLine("=== Lista de adyacencia ===");

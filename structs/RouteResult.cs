@@ -16,6 +16,24 @@ public record RouteResult(string[] Path, double TotalTime, double TotalCost, dou
             if (i > 0) sb.Append(" -> ");
             sb.Append(Path[i]);
         }
-        return $"[Destino:{Criteria}] {sb} | Tiempo: {TotalTime}s | Costo: Q{TotalCost.ToString("0.##", CultureInfo.InvariantCulture)}";
+
+        string r = string.Empty;
+        switch (Criteria)
+        {
+            case RouteCriteria.Cost:
+                r = "MÁS BARATA";
+                break;
+            case RouteCriteria.Time:
+                r = "MÁS RÁPIDA";
+                break;
+            case RouteCriteria.Combined:
+                r = "MÁS BARATA Y RÁPIDA";
+                break;
+            default:
+                r = "N/A";
+                break;
+        }
+
+        return $"[{r}] {sb} | Tiempo: {TotalTime}s | Costo: Q{TotalCost.ToString("0.##", CultureInfo.InvariantCulture)}";
     }
 }

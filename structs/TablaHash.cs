@@ -20,6 +20,8 @@ public class TablaHash
 
     public int Count => _count;
 
+    public int prevId = 0;
+
     public TablaHash(int initialCapacity = 11)
     {
         _buckets = new Node?[NextPrime(Math.Max(initialCapacity, 3))];
@@ -42,7 +44,7 @@ public class TablaHash
 
         _buckets[index] = new Node(book, _buckets[index]);
         _count++;
-
+        prevId = book.Id;
         if ((double)_count / _buckets.Length > MaxLoadFactor)
             Resize();
     }
@@ -67,10 +69,15 @@ public class TablaHash
                 continue;
             }
             for (Node? cur = _buckets[i]; cur != null; cur = cur.Next)
-                Console.Write($"({cur.Book.Id}: \"{cur.Book.Title}\" - {cur.Book.Author}) -> ");
-            Console.WriteLine("null");
+            {
+                Console.WriteLine($"\t({cur.Book.Id}: [Titulo: \"{cur.Book.Title}\" | Autor: {cur.Book.Author}]) | Disponible en: {cur.Book.Center}");
+            }
+            Console.WriteLine("-----------------------------------------------------------------");
+
         }
     }
+
+    public int GetAutoIncrement() => this.prevId+1;
 
     private static int Hash(int id, int capacity)
     {

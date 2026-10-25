@@ -42,7 +42,6 @@ public class Trie
 
     private readonly TrieNode _root = new();
 
-    // ---------- API pública ----------
     public void Insert(string nameBook)
     {
         string word = Normalize(nameBook);
