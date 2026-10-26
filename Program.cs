@@ -72,8 +72,13 @@ void LoadFiles()
     {
         foreach (var n in centers)
         {
-            Universal.Universal.graph.InsertNode(n[0]);
+            Universal.Universal.graph.InsertNode(
+                Universal.Universal.RemoverTildes(n[0].ToLower()));
+            Universal.Universal.trieCentres.Insert(
+                Universal.Universal.RemoverTildes(n[0].ToLower()));
         }
+
+        Console.WriteLine("! Nodos del grafo han sido cargados");
 
         if (edges != null)
         {
@@ -87,6 +92,7 @@ void LoadFiles()
                     )
                 );
             }
+            Console.WriteLine("! Conexiones de grafo han sido cargados");
         }
 
 
@@ -104,7 +110,12 @@ void LoadFiles()
                     Universal.Universal.RemoverTildes(b[1].ToLower())
                 );
             }
+            Console.WriteLine("! Registro de libro ha sido cargado");
         }
+    }
+    else
+    {
+        Console.WriteLine("Sin datos que cargar...");
     }
 }
 
@@ -149,20 +160,21 @@ void Main()
                 CenterMenu.SetMenuCenter();
                 break;
             case "3":
-                Console.WriteLine("Adios");
+               
                 break;
             default:
                 Console.WriteLine("La opción seleccionada no es valida, vuelve a intentarlo");
                 break;
         }
+        Console.Clear();
     } while (op != "3");
 }
 
 LoadFiles();
 try
 {
-
     Main();
+    Console.WriteLine("Adios");
 } catch (Exception ex)
 {
     Console.WriteLine($"Problema no controlado: {ex.Message}");
@@ -170,4 +182,5 @@ try
 finally
 {
     SaveFiles();
+    Console.WriteLine($"! Se han guardado los datos registrados");
 }

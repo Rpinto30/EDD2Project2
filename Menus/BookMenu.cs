@@ -20,10 +20,11 @@ namespace Proyecto2EDD2.Menus
             int center = -1;
             do
             {
+                Console.WriteLine("-----------------------------------------");
                 for (int i = 1; i <= centers.Length; i++)
                 {
                     if (centers[i - 1] == null || centers[i - 1] == string.Empty) break;
-                    Console.WriteLine($"{i}) {centers[i - 1]}");
+                    Console.WriteLine($"  {i}) {centers[i - 1]}");
                 }
 
                 Console.Write("> Ingresa el ID de la sede del libro: ");
@@ -82,6 +83,7 @@ namespace Proyecto2EDD2.Menus
                 int id = -1;
                 do
                 {
+                    Console.WriteLine("============== COINCIDENCIAS ENCONTRADAS ==============");
                     for (int i = 0; i < coincidences.Length; i++)
                     {
                         Console.WriteLine($"\t{i}) {coincidences[i]}");
@@ -117,8 +119,8 @@ namespace Proyecto2EDD2.Menus
         {
             if (book != null)
             {
-                Console.WriteLine($"===== ID: {book.Id} | Titulo: {book.Title} =====");
-                Console.WriteLine($"      Autor: {book.Author} | Sede: {book.Center}");
+                Console.WriteLine($"============== ID: {book.Id} | Titulo: {book.Title} ==============");
+                Console.WriteLine($"               Autor: {book.Author} | Sede: {book.Center}");
             }
             else
             {
@@ -182,8 +184,23 @@ namespace Proyecto2EDD2.Menus
                     return;
                 }
 
-                RouteResult? r = CenterMenu.CalcBoth(bookCenter, b);
-                
+                string opR = string.Empty;
+
+                Console.WriteLine("--------------------- SELECCIONA TIPO DE RUTA ---------------------");
+                Console.WriteLine(" 1) Ruta más rapida\n" +
+                                   " 2) Ruta más económica\n" +
+                                   " 3) Ruta más rápida y económica");
+                Console.Write("> Selecciona una opción para buscar la ruta: ");
+                opR = Console.ReadLine() ?? "0";
+
+
+
+                RouteResult? r = null;
+
+                if (opR == "1") r = CenterMenu.CalcFast(bookCenter, b);
+                else if (opR == "2") r = CenterMenu.CalcEco(bookCenter, b);
+                else if (opR == "3") r = CenterMenu.CalcBoth(bookCenter, b);
+
                 if (r != null)
                 {
                     CenterMenu.PrintRoute(r);

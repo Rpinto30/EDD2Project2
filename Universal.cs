@@ -11,6 +11,7 @@ namespace Universal
         public static Grafo graph = new Grafo();
         public static TablaHash table = new TablaHash(20);
         public static Trie trie = new Trie();
+        public static Trie trieCentres = new Trie();
 
         public static void WaitEntry()
         {

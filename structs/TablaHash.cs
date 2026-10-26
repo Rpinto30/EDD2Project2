@@ -71,7 +71,7 @@ public class TablaHash
 
     public void ShowTable()
     {
-        Console.WriteLine($"=== Tabla Hash (capacidad: {_buckets.Length}, elementos: {_count}) ===");
+        Console.WriteLine($"===== Tabla Hash (capacidad: {_buckets.Length}, elementos: {_count}) =====");
         for (int i = 0; i < _buckets.Length; i++)
         {
             Console.Write($"[{i}] ");

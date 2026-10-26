@@ -19,26 +19,89 @@ namespace Proyecto2EDD2.Menus
             Console.Clear();
             try
             {
-                Universal.Universal.graph.InsertNode(name);
+                Universal.Universal.graph.InsertNode(
+                    Universal.Universal.RemoverTildes(name)
+                    );
+                Universal.Universal.trieCentres.Insert(
+                    Universal.Universal.RemoverTildes(name)
+                    );
                 Console.WriteLine($"La sede {name} fue agregada");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Ocurrio un error... \n{ex.Message}");
             }
+        }
 
-            foreach(var i in Universal.Universal.graph.GetNames())
+
+        static string SearchNameCenter(string tittle)
+        {
+            string[] coincidences = Universal.Universal.trieCentres.GetCoincidences(tittle);
+
+            Console.Clear();
+            if (coincidences.Length > 0)
             {
-                Console.WriteLine(i);
+                int id = -1;
+                do
+                {
+                    Console.WriteLine("============== COINCIDENCIAS ENCONTRADAS ==============");
+                    for (int i = 0; i < coincidences.Length; i++)
+                    {
+                        Console.WriteLine($"\t{i}) {coincidences[i]}");
+                    }
+                    Console.Write("> Ingresa el numero de coincidencia del libro (-1 para ninguno): ");
+                    if (!int.TryParse(Console.ReadLine(), out id))
+                    {
+                        id = -2;
+                    }
+
+                } while (id + 1 < -1 || id + 1 > coincidences.Length);
+
+                Console.Clear();
+
+                if (id != -1)
+                {
+                    //Book? book = Universal.Universal.table.(coincidences[id]);
+                    return coincidences[id];
+                    //return book;
+                }
+
             }
+            else
+            {
+                Console.WriteLine($"No hay ninguna coincidencia con: {tittle}");
+                return string.Empty;
+            }
+            return string.Empty;
         }
 
         static void ConnectCenter()
         {
             Console.Write("> Ingresa el nombre de la sede de origen: ");
             string nameA = Console.ReadLine() ?? "";
+
+            if (!Universal.Universal.graph.InGraph(nameA))
+            {
+                nameA = SearchNameCenter(nameA);
+                if (nameA == string.Empty)
+                {
+                    Console.WriteLine("Sin origen no se puede completar el proceso");
+                    return;
+                } 
+            }
+
             Console.Write("> Ingresa el nombre de la sede de destino: ");
             string nameB = Console.ReadLine() ?? "";
+
+            if (!Universal.Universal.graph.InGraph(nameB))
+            {
+                nameB = SearchNameCenter(nameB);
+                if (nameB == string.Empty)
+                {
+                    Console.WriteLine("Sin destino no se puede completar el proceso");
+                    return;
+                }
+            }
 
             Console.Write("> Ingresa el TIMEPO de envio en minutos: ");
             double time = double.Parse(Console.ReadLine() ?? "0.00");
@@ -63,12 +126,32 @@ namespace Proyecto2EDD2.Menus
             }
         }
 
-        public static RouteResult? CalcFast()
+        static RouteResult? CalcFast()
         {
             Console.Write("> Ingresa el nombre de la sede de origen: ");
             string nameA = Console.ReadLine() ?? "";
+            if (!Universal.Universal.graph.InGraph(nameA))
+            {
+                nameA = SearchNameCenter(nameA);
+                if (nameA == string.Empty)
+                {
+                    Console.WriteLine("Sin origen no se puede completar el proceso");
+                    return null;
+                }
+            }
+
             Console.Write("> Ingresa el nombre de la sede de destino: ");
             string nameB = Console.ReadLine() ?? "";
+
+            if (!Universal.Universal.graph.InGraph(nameB))
+            {
+                nameB = SearchNameCenter(nameB);
+                if (nameB == string.Empty)
+                {
+                    Console.WriteLine("Sin origen no se puede completar el proceso");
+                    return null;
+                }
+            }
 
             Console.Clear();
             try
@@ -87,14 +170,62 @@ namespace Proyecto2EDD2.Menus
         {
             Console.Write("> Ingresa el nombre de la sede de origen: ");
             string nameA = Console.ReadLine() ?? "";
+            if (!Universal.Universal.graph.InGraph(nameA))
+            {
+                nameA = SearchNameCenter(nameA);
+                if (nameA == string.Empty)
+                {
+                    Console.WriteLine("Sin origen no se puede completar el proceso");
+                    return null;
+                }
+            }
+
             Console.Write("> Ingresa el nombre de la sede de destino: ");
             string nameB = Console.ReadLine() ?? "";
+
+            if (!Universal.Universal.graph.InGraph(nameB))
+            {
+                nameB = SearchNameCenter(nameB);
+                if (nameB == string.Empty)
+                {
+                    Console.WriteLine("Sin origen no se puede completar el proceso");
+                    return null;
+                }
+            }
 
             Console.Clear();
 
             try
             {
+                RouteResult? r = Universal.Universal.graph.DijkstraCost(nameA, nameB);
+                return r;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ocurrio un error... \n{ex.Message}");
+                return null;
+            }
+        }
+
+        public static RouteResult? CalcFast(string nameA, string nameB)
+        {
+            try
+            {
                 RouteResult? r = Universal.Universal.graph.DijkstraTime(nameA, nameB);
+                return r;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Ocurrio un error... \n{ex.Message}");
+                return null;
+            }
+        }
+
+        public static RouteResult? CalcEco(string nameA, string nameB)
+        {  
+            try
+            {
+                RouteResult? r = Universal.Universal.graph.DijkstraCost(nameA, nameB);
                 return r;
             }
             catch (Exception ex)
@@ -122,8 +253,28 @@ namespace Proyecto2EDD2.Menus
         {
             Console.Write("> Ingresa el nombre de la sede de origen: ");
             string nameA = Console.ReadLine() ?? "";
+            if (!Universal.Universal.graph.InGraph(nameA))
+            {
+                nameA = SearchNameCenter(nameA);
+                if (nameA == string.Empty)
+                {
+                    Console.WriteLine("Sin origen no se puede completar el proceso");
+                    return null;
+                }
+            }
+
             Console.Write("> Ingresa el nombre de la sede de destino: ");
             string nameB = Console.ReadLine() ?? "";
+
+            if (!Universal.Universal.graph.InGraph(nameB))
+            {
+                nameB = SearchNameCenter(nameB);
+                if (nameB == string.Empty)
+                {
+                    Console.WriteLine("Sin origen no se puede completar el proceso");
+                    return null;
+                }
+            }
 
             Console.Clear();
             try
@@ -142,7 +293,10 @@ namespace Proyecto2EDD2.Menus
         public static void PrintRoute(RouteResult? r)
         {
             if (r != null)
+            {
+                Console.WriteLine("============================");
                 Console.WriteLine(r.ToString());
+            }
             else
                 Console.WriteLine($"No se encontró esa ruta");
         }
@@ -179,8 +333,28 @@ namespace Proyecto2EDD2.Menus
         {
             Console.Write("> Ingresa el nombre de la sede de origen: ");
             string nameA = Console.ReadLine() ?? "";
+            if (!Universal.Universal.graph.InGraph(nameA))
+            {
+                nameA = SearchNameCenter(nameA);
+                if (nameA == string.Empty)
+                {
+                    Console.WriteLine("Sin origen no se puede completar el proceso");
+                    return;
+                }
+            }
+
             Console.Write("> Ingresa el nombre de la sede de destino: ");
             string nameB = Console.ReadLine() ?? "";
+
+            if (!Universal.Universal.graph.InGraph(nameB))
+            {
+                nameB = SearchNameCenter(nameB);
+                if (nameB == string.Empty)
+                {
+                    Console.WriteLine("Sin origen no se puede completar el proceso");
+                    return;
+                }
+            }
             Console.Clear();
             try
             {
@@ -212,14 +386,25 @@ namespace Proyecto2EDD2.Menus
                 CenterEdge conn = new CenterEdge(time, cost, (bidi == "Y") ? 1 : 0);
 
                 Universal.Universal.graph.InsertConnection(nameA, nameB, conn);
+                Console.WriteLine($"La sede {nameA} y la sede {nameB} ya se encuentran conectadas");
             }
             
         }
 
         static void DeleteCenter()
         {
-            Console.Write("> Ingresa el nombre de la sede: ");
+            Console.Write("> Ingresa el nombre de la sede de origen: ");
             string nameA = Console.ReadLine() ?? "";
+            if (!Universal.Universal.graph.InGraph(nameA))
+            {
+                nameA = SearchNameCenter(nameA);
+                if (nameA == string.Empty)
+                {
+                    Console.WriteLine("Sin origen no se puede completar el proceso");
+                    return;
+                }
+            }
+
 
             Console.Write($"> Estas seguro en eliminar la sede: {nameA}? (Y/n): ");
             string y = Console.ReadLine() ?? "n";
@@ -228,6 +413,7 @@ namespace Proyecto2EDD2.Menus
             {
                 Universal.Universal.table.DisconnectCenter(nameA);
                 Universal.Universal.graph.RemoveNode(nameA);
+                Universal.Universal.trieCentres.Remove(nameA);
 
                 Console.WriteLine($"La sede {nameA} fue eliminada");
             }

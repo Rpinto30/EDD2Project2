@@ -79,7 +79,7 @@ public class Grafo
     // ---------- Recorridos ----------
     public void Dfs()
     {
-        Console.WriteLine("=== DFS ===");
+        Console.WriteLine("============== DFS ==============");
         if (_count == 0) { Console.WriteLine("(grafo vacío)"); return; }
 
         bool[] visited = new bool[_count];
@@ -100,7 +100,7 @@ public class Grafo
 
     public void Bfs()
     {
-        Console.WriteLine("=== BFS ===");
+        Console.WriteLine("============== BFS ==============");
         if (_count == 0) { Console.WriteLine("(grafo vacío)"); return; }
 
         bool[] visited = new bool[_count];
@@ -128,12 +128,23 @@ public class Grafo
         Console.WriteLine(sb.ToString());
     }
 
-    public string[] GetNames() => this._names;
+    public string[] GetNames() {
+        bool allNull = true;
+        for (int i = 0; i < _names.Length; i++)
+        {
+            if (_names[i] != null)
+            {
+                allNull = false;
+                break; // Encontró un dato, dejamos de buscar
+            }
+        }
+        return (!allNull)?this._names: new string[0];
+    }
     
 
     public void ShowMatrix()
     {
-        Console.WriteLine("=== Lista de adyacencia ===");
+        Console.WriteLine("============== Lista de adyacencia ==============");
         for (int i = 0; i < _count; i++)
         {
             Console.Write($"{_names[i]}: ");
@@ -331,6 +342,18 @@ public class Grafo
         int i = IndexOf(name);
         if (i < 0) throw new InvalidOperationException($"La sede \"{name}\" no existe en el grafo.");
         return i;
+    }
+
+    public bool InGraph(string name)
+    {
+        try
+        {
+            RequireIndex(name);
+            return true;
+        } catch
+        {
+            return false;
+        }
     }
 
     public string[][] GetCleanNames()
